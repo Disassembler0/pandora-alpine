@@ -1,0 +1,5 @@
+#!/bin/execlineb -P
+
+cd /srv/pandora/pandora
+fdmove -c 2 1
+./manage.py celerybeat -s /srv/pandora/data/celerybeat-schedule --pidfile /run/pandora-cron.pid -l INFO

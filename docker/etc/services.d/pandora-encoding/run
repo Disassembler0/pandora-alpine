@@ -1,0 +1,5 @@
+#!/bin/execlineb -P
+
+cd /srv/pandora/pandora
+fdmove -c 2 1
+./manage.py celery worker -Q encoding -n pandora-encoding --pidfile /run/pandora-encoding.pid --maxtasksperchild 500 -l INFO

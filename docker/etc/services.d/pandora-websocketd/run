@@ -1,0 +1,5 @@
+#!/bin/execlineb -P
+
+cd /srv/pandora/pandora
+fdmove -c 2 1
+./manage.py websocketd --pidfile /run/pandora-websocketd.pid
