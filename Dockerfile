@@ -15,11 +15,11 @@ RUN \
     mkvtoolnix \
     nginx \
     poppler-utils \
-    py3-psycopg2 \
-    # py3-pillow \
-    py3-numpy \
     py3-geoip \
     py3-lxml \
+    py3-numpy \
+    py3-pillow \
+    py3-psycopg2 \
     python3 \
     s6 \
  && pip3 install \
@@ -84,23 +84,6 @@ RUN \
  && rm -rf /tmp/lib* /tmp/oxframe \
  && rm -rf /root/.cache
 
-# TODO: Remove whole following block once the item_icon.py gets fixed
-# TODO: Otherwise, if pillow version gets listed in requirements.txt, incorporate following block to the blocks above
-RUN \
- apk --no-cache add \
-    freetype \
-    libjpeg-turbo \
-    zlib \
- && apk --no-cache add --virtual .deps \
-    build-base \
-    freetype-dev \
-    libjpeg-turbo-dev \
-    python3-dev \
-    zlib-dev \
- && pip3 install "pillow<4.2.0" \
- && apk del .deps \
- && rm -rf /root/.cache
-
 # TODO: Remove following block once the relative paths in extract.py get fixed
 RUN \
  mkdir /srv/pandora/bin \
@@ -111,8 +94,6 @@ RUN \
  cd /srv/pandora/pandora \
  && cp config.pandora.jsonc config.jsonc \
  && cp gunicorn_config.py.in gunicorn_config.py \
- # TODO: Remove following line once the get_version() is fixed
- && sed -i 's/version = get_version()/version = "unknown"/' /srv/pandora/static/oxjs/tools/build/build.py \
  # Compile pyc and static files
  && ./manage.py update_static \
  && ./manage.py compile_pyc -p /srv/pandora/pandora \
